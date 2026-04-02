@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f6ff;
+  color: #0d1f3c;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #e8f0fe; }
+::-webkit-scrollbar-thumb { background: #1976D2; border-radius: 3px; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #1565C0, #42A5F5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-light {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(21,101,192,0.12);
+}
+
+.glass-blue {
+  background: rgba(21,101,192,0.07);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(21,101,192,0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1565C0, #1976D2);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(21,101,192,0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(21,101,192,0.5);
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+}
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+}
+
+.card-light {
+  background: #ffffff;
+  border: 1px solid rgba(21,101,192,0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 20px rgba(21,101,192,0.06);
+}
+.card-light:hover {
+  transform: translateY(-6px);
+  border-color: rgba(21,101,192,0.3);
+  box-shadow: 0 12px 40px rgba(21,101,192,0.15);
+}
+
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes pulse-blue { 0%,100%{opacity:0.3; transform:scale(1)} 50%{opacity:0.6; transform:scale(1.05)} }
+@keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes bounce-wa { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+.float-anim { animation: float 6s ease-in-out infinite; }
+.pulse-blue { animation: pulse-blue 3s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 25s linear infinite; }
+.bounce-wa { animation: bounce-wa 2s ease-in-out infinite; }
+
+.hero-bg {
+  background: linear-gradient(160deg, #dbeafe 0%, #eff6ff 40%, #e0f2fe 100%);
+}
+.section-alt {
+  background: linear-gradient(180deg, #f0f6ff 0%, #e8f4ff 100%);
+}
+.section-white {
+  background: #ffffff;
+}
