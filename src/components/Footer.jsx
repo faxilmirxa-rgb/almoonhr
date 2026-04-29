@@ -1,71 +1,235 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { 
+  FaWhatsapp, 
+  FaEnvelope, 
+  FaPhoneAlt,
+  FaInstagram,
+  FaFacebook,
+  FaArrowRight,
+  FaShieldAlt
+} from "react-icons/fa";
+import logo from "../assets/logo.svg";
 
-const WAIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white flex-shrink-0">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.83L.057 23.428a.5.5 0 00.515.572l5.782-.953A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.877 9.877 0 01-5.031-1.375l-.361-.214-3.735.616.633-3.647-.235-.374A9.845 9.845 0 012.118 12C2.118 6.533 6.533 2.118 12 2.118S21.882 6.533 21.882 12 17.467 21.882 12 21.882z"/>
-  </svg>
-);
+const EndingSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
-const links = {
-  Company: [
-    { label: "About Us", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Contact", href: "#contact" },
-  ],
-  "Job Seekers": [
-    { label: "Current Openings", href: "#jobs" },
-    { label: "How It Works", href: "#process" },
-    { label: "Apply on WhatsApp", href: "https://wa.me/919999999999" },
-  ],
-  Locations: [
-    { label: "🇦🇪 Dubai, UAE", href: "#" },
-    { label: "🇰🇼 Kuwait City", href: "#" },
-    { label: "🇸🇦 Riyadh, KSA", href: "#" },
-  ],
-};
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-export default function Footer() {
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const quickLinks = [
+    { name: "About Us", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Jobs", href: "/jobs" },
+    { name: "Process", href: "/process" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  const services = [
+    "Job Placement",
+    "Visa Processing",
+    "Documentation",
+    "Pre-deployment Training",
+    "Post-landing Support",
+  ];
+
+  const socialLinks = [
+    { icon: FaInstagram, name: "Instagram", link: "https://www.instagram.com/almoon_hr", bg: "from-pink-500 to-purple-600" },
+    { icon: FaFacebook, name: "Facebook", link: "https://www.facebook.com/share/1LNXLn8bsA/", bg: "from-blue-600 to-blue-700" },
+  ];
+
+  const footerLinks = [
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Terms & Conditions", href: "/terms-conditions" },
+  ];
+
   return (
-    <footer className="relative py-16 border-t border-blue-100"
-      style={{ background: "linear-gradient(180deg, #e8f0fe 0%, #dbeafe 100%)" }}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
-          <div className="md:col-span-1">
-            <div className="mb-4">
-              <div className="text-2xl font-black tracking-wider mb-1"
-                style={{ background: "linear-gradient(135deg, #1565C0, #42A5F5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                ALMOON
-              </div>
-              <div className="text-[10px] tracking-[0.3em] text-blue-400 font-semibold">HR CONSULTANCY</div>
+    <footer ref={sectionRef} className="relative bg-gradient-to-b from-gray-900 to-gray-950 text-white overflow-hidden">
+      
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#1871db] rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#1871db] rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-20">
+        
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+          
+          {/* Brand Column with Logo in White Card */}
+          <div 
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s'
+            }}
+          >
+            {/* White Card for Logo */}
+            <div className="bg-white rounded-xl p-3 mb-4 inline-block shadow-md">
+              <img 
+                src={logo} 
+                alt="ALMOON HR" 
+                className="h-10 md:h-12 w-auto"
+              />
             </div>
-            <p className="text-sm text-slate-500 leading-relaxed mb-5">
-              Trusted Gulf recruitment partner. Connecting Indian talent with verified Gulf employers since 2010+.
+            
+            <p className="font-['DM_Sans'] text-gray-400 text-sm leading-relaxed mb-4">
+              Bridging talent beyond boundaries. Your trusted partner for global career opportunities.
             </p>
-            <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer"
-              className="btn-whatsapp inline-flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-full text-white">
-              <WAIcon /> WhatsApp Us
-            </a>
-          </div>
-          {Object.entries(links).map(([section, items]) => (
-            <div key={section}>
-              <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-5">{section}</h4>
-              <ul className="space-y-3">
-                {items.map(({ label, href }) => (
-                  <li key={label}>
-                    <a href={href} target={href.startsWith("http") ? "_blank" : "_self"} rel="noopener noreferrer"
-                      className="text-sm text-slate-600 hover:text-blue-700 transition-colors font-medium">{label}</a>
-                  </li>
-                ))}
-              </ul>
+            
+            {/* Trust Badge */}
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+              </div>
+              <span className="font-['DM_Sans'] text-xs text-gray-400">Govt. Registered • MSME Certified</span>
             </div>
-          ))}
+          </div>
+
+          {/* Quick Links */}
+          <div 
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
+            }}
+          >
+            <h3 className="font-['Sora'] text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {quickLinks.map((link, idx) => (
+                <li key={idx}>
+                  <a 
+                    href={link.href} 
+                    className="font-['DM_Sans'] text-gray-400 text-sm hover:text-[#1871db] transition-all duration-300 flex items-center gap-2 group"
+                  >
+                    <FaArrowRight className="text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 -translate-x-2" />
+                    <span className="group-hover:translate-x-1 transition-all duration-300">{link.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Our Services */}
+          <div 
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s'
+            }}
+          >
+            <h3 className="font-['Sora'] text-lg font-semibold mb-4">Our Services</h3>
+            <ul className="space-y-2">
+              {services.map((service, idx) => (
+                <li key={idx}>
+                  <span className="font-['DM_Sans'] text-gray-400 text-sm flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[#1871db]"></span>
+                    {service}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div 
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out 0.4s, transform 0.5s ease-out 0.4s'
+            }}
+          >
+            <h3 className="font-['Sora'] text-lg font-semibold mb-4">Get In Touch</h3>
+            <div className="space-y-3">
+              <a href="tel:+918976663732" className="flex items-center gap-3 font-['DM_Sans'] text-gray-400 text-sm hover:text-[#1871db] transition-all duration-300 group">
+                <FaPhoneAlt className="text-sm group-hover:scale-110 transition-transform duration-300" />
+                <span>+91 89766 663732 | 70456 663732</span>
+              </a>
+              <a href="mailto:Info@almoonhr.com" className="flex items-center gap-3 font-['DM_Sans'] text-gray-400 text-sm hover:text-[#1871db] transition-all duration-300 group">
+                <FaEnvelope className="text-sm group-hover:scale-110 transition-transform duration-300" />
+                <span>Info@almoonhr.com</span>
+              </a>
+              <a href="https://wa.me/918976663732" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 font-['DM_Sans'] text-gray-400 text-sm hover:text-[#1871db] transition-all duration-300 group">
+                <FaWhatsapp className="text-sm group-hover:scale-110 transition-transform duration-300" />
+                <span>WhatsApp Chat</span>
+              </a>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex gap-3 mt-6">
+              {socialLinks.map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-xl bg-gradient-to-r ${social.bg} flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-300 hover:scale-110 hover:rotate-6`}
+                >
+                  <social.icon className="text-white text-lg" />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="border-t border-blue-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-400">© {new Date().getFullYear()} Almoon HR Consultancy. All rights reserved.</p>
-          <p className="text-xs text-slate-400">Registered Recruitment Agency · India</p>
+
+        {/* Bottom Bar */}
+        <div 
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s'
+          }}
+          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-gray-800"
+        >
+          <p className="font-['DM_Sans'] text-gray-500 text-xs">
+            © {new Date().getFullYear()} ALMOON HR Consultancy. All rights reserved.
+          </p>
+          
+          <div className="flex gap-6">
+            {footerLinks.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                className="font-['DM_Sans'] text-gray-500 text-xs hover:text-[#1871db] transition-all duration-300"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+          
+          <p className="font-['DM_Sans'] text-gray-500 text-xs">
+            Bridging Talent Beyond Boundaries
+          </p>
         </div>
+
+        {/* Scroll to Top Button */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 left-6 z-50 w-10 h-10 rounded-full bg-[#1871db] text-white flex items-center justify-center shadow-lg hover:bg-[#1460b8] transition-all duration-300 hover:scale-110 group"
+        >
+          <svg className="w-5 h-5 transform rotate-0 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
       </div>
     </footer>
   );
-}
+};
+
+export default EndingSection;
