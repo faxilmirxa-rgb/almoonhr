@@ -10,11 +10,15 @@ import Contact from "./pages/Contact";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
+import ScrollToTop from "./components/ScrollToTop";
+
 
 
 export default function App() {
   return (
     <BrowserRouter>
+  
+    <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -28,6 +32,7 @@ export default function App() {
       </Routes>
       <FloatingWhatsApp />
       <Footer />
+
     </BrowserRouter>
   );
 }

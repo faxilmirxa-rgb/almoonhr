@@ -83,12 +83,12 @@ const ProcessSection = () => {
   const totalTime = "4-6 Weeks";
   
   const requiredDocs = [
-    { icon: FaPassport, text: "Valid Passport (2+ years)", highlight: true },
-    { icon: FaRegIdCard, text: "Educational Certificates", highlight: false },
-    { icon: FaRegFileAlt, text: "Experience Letters", highlight: false },
-    { icon: FaStethoscope, text: "Medical Certificate", highlight: true },
-    { icon: FaRegCalendarAlt, text: "Police Clearance", highlight: false },
-    { icon: FaFileAlt, text: "Passport Size Photos", highlight: false },
+    { icon: FaPassport, text: "Valid Passport (2+ years)" },
+    { icon: FaRegIdCard, text: "Educational Certificates" },
+    { icon: FaRegFileAlt, text: "Experience Letters" },
+    { icon: FaStethoscope, text: "Medical Certificate" },
+    { icon: FaRegCalendarAlt, text: "Police Clearance" },
+    { icon: FaFileAlt, text: "Passport Size Photos" },
   ];
 
   // Auto-rotate steps when in view and not interacting
@@ -102,16 +102,13 @@ const ProcessSection = () => {
     return () => clearInterval(interval);
   }, [isInView, isUserInteracting, animationPaused, steps.length]);
 
-  // Handle user interaction - stops auto-rotation
   const handleStepClick = (index) => {
     setIsUserInteracting(true);
     setAnimationPaused(true);
     setActiveStep(index);
     
-    // Clear existing timeout
     if (hoverTimeout) clearTimeout(hoverTimeout);
     
-    // Resume auto-rotation after 8 seconds of no interaction
     const timeout = setTimeout(() => {
       setIsUserInteracting(false);
       setAnimationPaused(false);
@@ -120,13 +117,11 @@ const ProcessSection = () => {
     setHoverTimeout(timeout);
   };
 
-  // Handle mouse enter - pause animation
   const handleMouseEnter = () => {
     setAnimationPaused(true);
     if (hoverTimeout) clearTimeout(hoverTimeout);
   };
 
-  // Handle mouse leave - resume after delay
   const handleMouseLeave = () => {
     const timeout = setTimeout(() => {
       setAnimationPaused(false);
@@ -208,7 +203,6 @@ const ProcessSection = () => {
           >
             {/* Desktop Timeline */}
             <div className="hidden md:block relative">
-              {/* Vertical Line with Progress */}
               <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-[#1871db]/20">
                 <motion.div 
                   className="absolute top-0 left-0 w-full bg-[#1871db]"
@@ -227,14 +221,12 @@ const ProcessSection = () => {
                   className={`relative flex gap-5 mb-8 cursor-pointer group`}
                   onClick={() => handleStepClick(step.id)}
                 >
-                  {/* Step Number Circle with Pulse Animation when active */}
                   <div className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-['Sora'] font-bold text-white shadow-md transition-all duration-300 bg-gradient-to-br ${step.color} 
                     ${activeStep === step.id ? 'scale-110 ring-4 ring-[#1871db]/30' : 'group-hover:scale-105'}
                     ${activeStep === step.id && !animationPaused ? 'animate-pulse' : ''}`}>
                     {step.id + 1}
                   </div>
                   
-                  {/* Step Content */}
                   <div className={`flex-1 pb-6 transition-all duration-300 ${activeStep === step.id ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}>
                     <div className="flex items-center gap-3 flex-wrap mb-1">
                       <h3 className={`font-['Sora'] text-lg font-bold transition-colors duration-300 ${activeStep === step.id ? 'text-[#1871db]' : 'text-gray-800'}`}>
@@ -282,7 +274,7 @@ const ProcessSection = () => {
             </div>
           </motion.div>
 
-          {/* Right Side - Active Step Details & Documents with Smooth Transition */}
+          {/* Right Side - Active Step Details & Documents */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -296,7 +288,6 @@ const ProcessSection = () => {
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               className="bg-white rounded-2xl p-6 shadow-lg border border-[#1871db]/20 sticky top-24"
             >
-              {/* Active Step Header */}
               <div className="flex items-center gap-3 mb-5 pb-3 border-b border-gray-100">
                 <motion.div 
                   initial={{ scale: 0.8, rotate: -10 }}
@@ -315,7 +306,6 @@ const ProcessSection = () => {
                 </div>
               </div>
 
-              {/* Description with Fade */}
               <motion.p 
                 key={`desc-${activeStep}`}
                 initial={{ opacity: 0 }}
@@ -326,7 +316,6 @@ const ProcessSection = () => {
                 {steps[activeStep].description}
               </motion.p>
 
-              {/* Documents Required */}
               <motion.div 
                 key={`docs-${activeStep}`}
                 initial={{ opacity: 0, x: -10 }}
@@ -354,7 +343,6 @@ const ProcessSection = () => {
                 </ul>
               </motion.div>
 
-              {/* Step Navigation Dots */}
               <div className="flex justify-center gap-2 mt-5">
                 {steps.map((_, idx) => (
                   <button
@@ -369,7 +357,6 @@ const ProcessSection = () => {
                 ))}
               </div>
 
-              {/* Auto-rotate indicator */}
               {!animationPaused && isInView && (
                 <motion.div 
                   initial={{ opacity: 0 }}
@@ -398,37 +385,64 @@ const ProcessSection = () => {
           </motion.div>
         </div>
 
-        {/* Quick Documents Summary */}
+        {/* ═══════════════════════════════════════════════════════════
+            Quick Documents Summary — Neutral by default, blue on hover
+            ═══════════════════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mt-12 bg-white rounded-2xl p-6 shadow-md border border-[#1871db]/20"
+          transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-16 bg-white rounded-3xl p-8 md:p-10 shadow-md border border-[#1871db]/10"
         >
-          <h3 className="font-['Sora'] text-xl font-bold text-gray-800 mb-4 text-center">
-            Key Documents You'll Need
-          </h3>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {requiredDocs.map((doc, idx) => (
-              <motion.span
-                key={idx}
-                whileHover={{ scale: 1.05, y: -2 }}
-                transition={{ duration: 0.2 }}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-['DM_Sans'] font-medium cursor-default transition-all duration-300 ${
-                  doc.highlight 
-                    ? "bg-gradient-to-r from-[#1871db] to-[#1460b8] text-white shadow-md" 
-                    : "bg-gray-100 text-gray-700 hover:bg-[#1871db]/10"
-                }`}
-              >
-                {(() => {
-                  const IconDoc = doc.icon;
-                  return <IconDoc className="text-sm" />;
-                })()}
-                {doc.text}
-              </motion.span>
-            ))}
+          {/* Header */}
+          <div className="text-center mb-10">
+            <span className="font-['DM_Sans'] text-xs uppercase tracking-[0.25em] text-[#1871db]/70">
+              What You'll Prepare
+            </span>
+            <h3 className="font-['Sora'] text-2xl md:text-3xl font-bold text-gray-800 mt-2">
+              Key Documents You'll Need
+            </h3>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#1871db] to-[#1871db]/40 mx-auto rounded-full mt-4"></div>
           </div>
+
+          {/* Documents Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+            {requiredDocs.map((doc, idx) => {
+              const IconDoc = doc.icon;
+
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.7 + idx * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{ y: -6 }}
+                  className="group relative flex flex-col items-center text-center p-4 rounded-2xl border border-[#1871db]/10 bg-[#1871db]/[0.03] cursor-default transition-all duration-300 hover:bg-gradient-to-br hover:from-[#1871db] hover:to-[#1460b8] hover:border-transparent hover:shadow-lg hover:shadow-[#1871db]/25"
+                >
+                  {/* Icon Tile */}
+                  <div className="w-12 h-12 mb-3 rounded-xl flex items-center justify-center bg-white shadow-sm border border-[#1871db]/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-white/15 group-hover:border-white/20 group-hover:shadow-none">
+                    <IconDoc className="text-lg text-[#1871db] transition-colors duration-300 group-hover:text-white" />
+                  </div>
+
+                  {/* Label */}
+                  <span className="font-['DM_Sans'] text-xs md:text-[13px] font-medium leading-snug text-gray-700 transition-colors duration-300 group-hover:text-white">
+                    {doc.text}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Small Footer Note */}
+          <p className="text-center font-['DM_Sans'] text-xs text-gray-400 mt-8">
+            All documents must be valid and up-to-date for visa processing.
+          </p>
         </motion.div>
+        {/* ═══════════════════════════════════════════════════════════ */}
 
         {/* CTA */}
         <motion.div
